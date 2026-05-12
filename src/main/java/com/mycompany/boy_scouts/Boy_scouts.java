@@ -39,6 +39,9 @@ public class Boy_scouts {
                 case 5:
                     addCamper(nameCampers);
                     break;
+                case 6:
+                    countCamper(nameCampers);
+                    break;
             }
         } while (opc != 0);
 
@@ -57,6 +60,8 @@ public class Boy_scouts {
         System.out.println("2. Update number of campers");
         System.out.println("3. Update location");
         System.out.println("4. Update days");
+        System.out.println("5. Add camper");
+        System.out.println("6. Count campers");
         System.out.println("0. Exit");
 
         Scanner sc = new Scanner(System.in);
@@ -118,5 +123,16 @@ public class Boy_scouts {
             }
         }
         System.out.println("The array of strings is full!No more camper names can be added!");
+    }
+
+    public static int countCamper(String[] nameCampers) {
+        int number = 0;
+        for (int i = 0; i < nameCampers.length; i++) {
+            if (!nameCampers.equals("null")) {
+                number++;
+            }
+        }
+        System.out.println("Number of campers: " + number);
+        return number;
     }
 }
