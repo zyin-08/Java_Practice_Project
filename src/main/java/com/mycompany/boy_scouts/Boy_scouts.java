@@ -3,6 +3,7 @@
  */
 package com.mycompany.boy_scouts;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -17,6 +18,8 @@ public class Boy_scouts {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        String[] nameCampers = new String[10];
+        Arrays.fill(nameCampers, "null");
         int opc;
         do {
             opc = menu();
@@ -32,6 +35,9 @@ public class Boy_scouts {
                     break;
                 case 4:
                     updateDays();
+                    break;
+                case 5:
+                    addCamper(nameCampers);
                     break;
             }
         } while (opc != 0);
@@ -92,5 +98,25 @@ public class Boy_scouts {
         System.out.println("Update days: ");
         days = sc.nextInt();
         System.out.println("Thanks! Days changed to: " + days);
+    }
+
+    public static void addCamper(String[] nameCampers) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a name: ");
+        String name = sc.nextLine();
+        for (int i = 0; i < nameCampers.length; i++) {
+            if (nameCampers[i].equals(name)) {
+                System.out.println("Camper name already exists! Try again!");
+                return;
+            }
+        }
+        for (int i = 0; i < nameCampers.length; i++) {
+            if (nameCampers[i].equals("null")) {
+                nameCampers[i] = name;
+                System.out.println("Camper name added correctly! Good Job!");
+                return;
+            }
+        }
+        System.out.println("The array of strings is full!No more camper names can be added!");
     }
 }
