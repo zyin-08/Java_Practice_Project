@@ -12,6 +12,10 @@ import java.util.Scanner;
  */
 public class Boy_scouts {
 
+    private static int numberCampers = 10;
+    private static String location = "Barcelona";
+    private static int days = 5;
+    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("====== Welcome to Scout Camp Manager ======");
@@ -22,10 +26,6 @@ public class Boy_scouts {
         String campName = sc.nextLine();
         System.out.println("Leader name: " + name);
         System.out.println("Camp name: " + campName);
-        
-        int numberCampers = 10;
-        String location = "Barcelona";
-        int days = 5;
         
         System.out.println("====== Camp info ======");
         System.out.println("Number of campers: " + numberCampers);
