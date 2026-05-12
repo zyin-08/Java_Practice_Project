@@ -15,10 +15,11 @@ public class Boy_scouts {
     private static int numberCampers = 10;
     private static String location = "Barcelona";
     private static int days = 5;
+    
+    private static String[] nameCampers = new String[10];
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String[] nameCampers = new String[10];
         Arrays.fill(nameCampers, "null");
         int opc;
         do {
@@ -41,6 +42,7 @@ public class Boy_scouts {
                     break;
                 case 6:
                     countCamper(nameCampers);
+                    System.out.println("Number of campers: " + countCamper(nameCampers));
                     break;
             }
         } while (opc != 0);
@@ -105,24 +107,25 @@ public class Boy_scouts {
         System.out.println("Thanks! Days changed to: " + days);
     }
 
-    public static void addCamper(String[] nameCampers) {
+    public static boolean addCamper(String[] nameCampers) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a name: ");
         String name = sc.nextLine();
         for (int i = 0; i < nameCampers.length; i++) {
             if (nameCampers[i].equals(name)) {
                 System.out.println("Camper name already exists! Try again!");
-                return;
+                return false;
             }
         }
         for (int i = 0; i < nameCampers.length; i++) {
             if (nameCampers[i].equals("null")) {
                 nameCampers[i] = name;
                 System.out.println("Camper name added correctly! Good Job!");
-                return;
+                return true;
             }
         }
         System.out.println("The array of strings is full!No more camper names can be added!");
+        return false;
     }
 
     public static int countCamper(String[] nameCampers) {
@@ -132,7 +135,6 @@ public class Boy_scouts {
                 number++;
             }
         }
-        System.out.println("Number of campers: " + number);
         return number;
     }
 }
