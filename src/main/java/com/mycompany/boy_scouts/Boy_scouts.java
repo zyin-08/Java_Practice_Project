@@ -15,6 +15,7 @@ public class Boy_scouts {
     private static int numberCampers = 10;
     private static String location = "Barcelona";
     private static int days = 5;
+    private static Amount amount;
     
     private static String[] nameCampers = new String[10];
 
