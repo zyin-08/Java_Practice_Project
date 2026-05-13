@@ -12,12 +12,12 @@ import java.util.Scanner;
  */
 public class Boy_scouts {
 
-    private static int numberCampers = 10;
-    private static String location = "Barcelona";
+    private static int numberCampers = 5;
+    private static Location location = new Location("Spain","Barcelona");
     private static int days = 5;
     private static Amount amount;
     
-    private static String[] nameCampers = new String[10];
+    private static Camper [] nameCampers = new Camper[10];
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -39,11 +39,10 @@ public class Boy_scouts {
                     updateDays();
                     break;
                 case 5:
-                    addCamper(nameCampers);
+                    addCamper();
                     break;
                 case 6:
-                    countCamper(nameCampers);
-                    System.out.println("Number of campers: " + countCamper(nameCampers));
+                    System.out.println("Number of campers: " + countCamper());
                     break;
             }
         } while (opc != 0);
@@ -72,14 +71,14 @@ public class Boy_scouts {
         do {
             System.out.println("Elige una opcion: ");
             opc = sc.nextInt();
-        } while (opc < 0 || opc > 5);
+        } while (opc < 0 || opc > 6);
         return opc;
     }
 
     public static void showCamp() {
         System.out.println("====== Camp info ======");
         System.out.println("Number of campers: " + numberCampers);
-        System.out.println("Location: " + location);
+        System.out.println("Location: " + location.toString());
         System.out.println("Days: " + days);
     }
 
@@ -96,9 +95,13 @@ public class Boy_scouts {
 
     public static void updateLocation() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Update location: ");
-        location = sc.nextLine();
-        System.out.println("Thanks! Location changed to: " + location);
+        System.out.println("Update country: ");
+        String country = sc.nextLine();
+        System.out.println("Update city: ");
+        String city = sc.nextLine();
+        location.setCity(city);
+        location.setCountry(country);
+        System.out.println("Thanks! Location changed to: " + location.toString());
     }
 
     public static void updateDays() {
@@ -108,20 +111,24 @@ public class Boy_scouts {
         System.out.println("Thanks! Days changed to: " + days);
     }
 
-    public static boolean addCamper(String[] nameCampers) {
+    public static boolean addCamper() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter a name: ");
         String name = sc.nextLine();
+        System.out.println("Enter an age: ");
+        int age = sc.nextInt();
+        System.out.println("Is the camper a veteran?");
+        boolean veteran = sc.nextBoolean();
         for (int i = 0; i < nameCampers.length; i++) {
-            if (nameCampers[i].equals(name)) {
+            if (nameCampers[i].getName().equals(name)) {
                 System.out.println("Camper name already exists! Try again!");
                 return false;
             }
         }
         for (int i = 0; i < nameCampers.length; i++) {
-            if (nameCampers[i].equals("null")) {
-                nameCampers[i] = name;
-                System.out.println("Camper name added correctly! Good Job!");
+            if (nameCampers[i].getName().equals("null")) {
+                nameCampers[i] = new Camper(name,age,veteran);
+                System.out.println("Camper added correctly! Good Job!");
                 return true;
             }
         }
@@ -129,7 +136,7 @@ public class Boy_scouts {
         return false;
     }
 
-    public static int countCamper(String[] nameCampers) {
+    public static int countCamper() {
         int number = 0;
         for (int i = 0; i < nameCampers.length; i++) {
             if (!nameCampers.equals("null")) {
