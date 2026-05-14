@@ -13,11 +13,11 @@ import java.util.Scanner;
 public class Boy_scouts {
 
     private static int numberCampers = 5;
-    private static Location location = new Location("Spain","Barcelona");
+    private static Location location = new Location("Spain", "Barcelona");
     private static int days = 5;
-    private static Amount amount;
-    
-    private static Camper [] nameCampers = new Camper[10];
+    private static Amount amount = new Amount(0.0, "euro");
+
+    private static Camper[] nameCampers = new Camper[10];
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -44,6 +44,9 @@ public class Boy_scouts {
                 case 6:
                     System.out.println("Number of campers: " + countCamper());
                     break;
+                case 7:
+                    updateAmount();
+                    break;
             }
         } while (opc != 0);
 
@@ -64,6 +67,7 @@ public class Boy_scouts {
         System.out.println("4. Update days");
         System.out.println("5. Add camper");
         System.out.println("6. Count campers");
+        System.out.println("7. Update amount");
         System.out.println("0. Exit");
 
         Scanner sc = new Scanner(System.in);
@@ -71,7 +75,7 @@ public class Boy_scouts {
         do {
             System.out.println("Elige una opcion: ");
             opc = sc.nextInt();
-        } while (opc < 0 || opc > 6);
+        } while (opc < 0 || opc > 7);
         return opc;
     }
 
@@ -106,9 +110,14 @@ public class Boy_scouts {
 
     public static void updateDays() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Update days: ");
-        days = sc.nextInt();
-        System.out.println("Thanks! Days changed to: " + days);
+        do {
+            System.out.println("Update days: ");
+            days = sc.nextInt();
+            if (days < 1 || days > 50) {
+                System.out.println("Error! The number has to be between 1 and 50!");
+            }
+        } while (days < 1 || days > 50);
+            System.out.println("Thanks! Days changed to: " + days);
     }
 
     public static boolean addCamper() {
@@ -127,12 +136,12 @@ public class Boy_scouts {
         }
         for (int i = 0; i < nameCampers.length; i++) {
             if (nameCampers[i].getName().equals("null")) {
-                nameCampers[i] = new Camper(name,age,veteran);
+                nameCampers[i] = new Camper(name, age, veteran);
                 System.out.println("Camper added correctly! Good Job!");
                 return true;
             }
         }
-        System.out.println("The array of strings is full!No more camper names can be added!");
+        System.out.println("The array of strings is full! No more camper names can be added!");
         return false;
     }
 
@@ -145,4 +154,13 @@ public class Boy_scouts {
         }
         return number;
     }
+
+    public static void updateAmount() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the price: ");
+        double price = sc.nextDouble();
+        amount.setPrice(price);
+        System.out.println("Thanks! Amount changed to: " + amount.getPrice() + " " + amount.getCurrency());
+    }
+
 }
