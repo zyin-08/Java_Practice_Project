@@ -43,6 +43,10 @@ public class Camper {
     public void setVeteran(boolean veteran) {
         this.veteran = veteran;
     }
+    
+    public String nameUpperCase(){
+        return name.toUpperCase();
+    }
 
     @Override
     public String toString() {

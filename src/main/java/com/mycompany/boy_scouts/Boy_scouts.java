@@ -18,6 +18,7 @@ public class Boy_scouts {
     private static Amount amount = new Amount(0.0, "euro");
 
     private static Camper[] nameCampers = new Camper[10];
+    private static Activity[] activities = new Activity[10];
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -55,6 +56,9 @@ public class Boy_scouts {
                 case 10:
                     payAmount();
                     break;
+                case 11:
+                    addActivity();
+                    break;
             }
         } while (opc != 0);
 
@@ -79,6 +83,7 @@ public class Boy_scouts {
         System.out.println("8. Average age of campers");
         System.out.println("9. Camper with max age");
         System.out.println("10. Calcute price per camper");
+        System.out.println("11. Add activity");
         System.out.println("0. Exit");
 
         Scanner sc = new Scanner(System.in);
@@ -86,7 +91,7 @@ public class Boy_scouts {
         do {
             System.out.println("Elige una opcion: ");
             opc = sc.nextInt();
-        } while (opc < 0 || opc > 10);
+        } while (opc < 0 || opc > 11);
         return opc;
     }
 
@@ -152,7 +157,7 @@ public class Boy_scouts {
                 return true;
             }
         }
-        System.out.println("The array of strings is full! No more camper names can be added!");
+        System.out.println("The array of campers is full! No more camper names can be added!");
         return false;
     }
 
@@ -221,5 +226,28 @@ public class Boy_scouts {
         }
         double price = amount.getPrice() / numCamper;
         System.out.println("Every camper should pay: " + price + " " + amount.getCurrency());
+    }
+
+    public static boolean addActivity() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter an activity: ");
+        String name = sc.nextLine();
+        System.out.println("Enter activity duration: ");
+        double duration = sc.nextDouble();
+        for (int i = 0; i < activities.length; i++) {
+            if (activities[i] != null && activities[i].getName().equals(name)) {
+                System.out.println("Activity already exists! Try again!");
+                return false;
+            }
+        }
+        for (int i = 0; i < activities.length; i++) {
+            if (activities[i] == null) {
+                activities[i] = new Activity(name, duration);
+                System.out.println("Activity added correctly! Good Job!");
+                return true;
+            }
+        }
+        System.out.println("The array of activities is full! No more activities names can be added!");
+        return false;
     }
 }
