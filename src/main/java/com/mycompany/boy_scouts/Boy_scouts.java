@@ -59,6 +59,9 @@ public class Boy_scouts {
                 case 11:
                     addActivity();
                     break;
+                case 12:
+                    System.out.println("Number of activities: " + actRegistered() );
+                    break;
             }
         } while (opc != 0);
 
@@ -84,6 +87,7 @@ public class Boy_scouts {
         System.out.println("9. Camper with max age");
         System.out.println("10. Calcute price per camper");
         System.out.println("11. Add activity");
+        System.out.println("12. Number of activities registered");
         System.out.println("0. Exit");
 
         Scanner sc = new Scanner(System.in);
@@ -91,7 +95,7 @@ public class Boy_scouts {
         do {
             System.out.println("Elige una opcion: ");
             opc = sc.nextInt();
-        } while (opc < 0 || opc > 11);
+        } while (opc < 0 || opc > 12);
         return opc;
     }
 
@@ -164,7 +168,7 @@ public class Boy_scouts {
     public static int countCamper() {
         int number = 0;
         for (int i = 0; i < nameCampers.length; i++) {
-            if (nameCampers != null) {
+            if (nameCampers[i] != null) {
                 number++;
             }
         }
@@ -196,7 +200,7 @@ public class Boy_scouts {
         return average;
     }
 
-    public static void maxAge() {
+    public static Camper maxAge() {
         Camper oldest = null;
         for (int i = 0; i < nameCampers.length; i++) {
             if (nameCampers[i] != null) {
@@ -208,12 +212,12 @@ public class Boy_scouts {
         if (oldest == null) {
             System.out.println("There are no registered campers!");
         } else {
-            System.out.println("Oldest Camper: ");
-            System.out.println(oldest.toString());
+            System.out.println("Oldest Camper: " + oldest.getName());
         }
+        return oldest;
     }
 
-    public static void payAmount() {
+    public static Amount payAmount() {
         int numCamper = 0;
         for (int i = 0; i < nameCampers.length; i++) {
             if (nameCampers[i] != null) {
@@ -222,10 +226,11 @@ public class Boy_scouts {
         }
         if (numCamper <= 0) {
             System.out.println("There are no registered campers!");
-            return;
+            return new Amount(0.0, amount.getCurrency());
         }
         double price = amount.getPrice() / numCamper;
         System.out.println("Every camper should pay: " + price + " " + amount.getCurrency());
+        return new Amount(price, amount.getCurrency());
     }
 
     public static boolean addActivity() {
@@ -249,5 +254,15 @@ public class Boy_scouts {
         }
         System.out.println("The array of activities is full! No more activities names can be added!");
         return false;
+    }
+    
+    public static int actRegistered(){
+        int num = 0;
+        for (int i = 0; i < activities.length; i++) {
+            if (activities[i] != null ){
+                num++;
+            }
+        }
+        return num;
     }
 }
