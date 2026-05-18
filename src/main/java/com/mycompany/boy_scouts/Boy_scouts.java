@@ -3,7 +3,7 @@
  */
 package com.mycompany.boy_scouts;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -17,8 +17,8 @@ public class Boy_scouts {
     private static int days = 5;
     private static Amount amount = new Amount(0.0, "euro");
 
-    private static Camper[] nameCampers = new Camper[10];
-    private static Activity[] activities = new Activity[10];
+    private static ArrayList<Camper> nameCampers = new ArrayList<>();
+    private static ArrayList<Activity> activities = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -60,7 +60,7 @@ public class Boy_scouts {
                     addActivity();
                     break;
                 case 12:
-                    System.out.println("Number of activities: " + actRegistered() );
+                    System.out.println("Number of activities: " + actRegistered());
                     break;
             }
         } while (opc != 0);
@@ -148,31 +148,20 @@ public class Boy_scouts {
         int age = sc.nextInt();
         System.out.println("Is the camper a veteran?");
         boolean veteran = sc.nextBoolean();
-        for (int i = 0; i < nameCampers.length; i++) {
-            if (nameCampers[i] != null && nameCampers[i].getName().equals(name)) {
+        for (Camper camper : nameCampers) {
+            if (camper.getName().equals(name)) {
                 System.out.println("Camper name already exists! Try again!");
                 return false;
             }
         }
-        for (int i = 0; i < nameCampers.length; i++) {
-            if (nameCampers[i] == null) {
-                nameCampers[i] = new Camper(name, age, veteran);
-                System.out.println("Camper added correctly! Good Job!");
-                return true;
-            }
-        }
-        System.out.println("The array of campers is full! No more camper names can be added!");
-        return false;
+        nameCampers.add(new Camper(name, age, veteran));
+        System.out.println("Camper added correctly! Good Job!");
+        return true;
+
     }
 
     public static int countCamper() {
-        int number = 0;
-        for (int i = 0; i < nameCampers.length; i++) {
-            if (nameCampers[i] != null) {
-                number++;
-            }
-        }
-        return number;
+        return nameCampers.size();
     }
 
     public static void updateAmount() {
@@ -186,11 +175,9 @@ public class Boy_scouts {
     public static double averageAge() {
         int number = 0;
         int age = 0;
-        for (int i = 0; i < nameCampers.length; i++) {
-            if (nameCampers[i] != null) {
-                age += nameCampers[i].getAge();
-                number++;
-            }
+        for (Camper camper : nameCampers) {
+            age += camper.getAge();
+            number++;
         }
         if (number == 0) {
             System.out.println("There are no registered campers!");
@@ -202,11 +189,9 @@ public class Boy_scouts {
 
     public static Camper maxAge() {
         Camper oldest = null;
-        for (int i = 0; i < nameCampers.length; i++) {
-            if (nameCampers[i] != null) {
-                if (oldest == null || nameCampers[i].getAge() > oldest.getAge()) {
-                    oldest = nameCampers[i];
-                }
+        for (Camper camper : nameCampers) {
+            if (oldest == null || camper.getAge() > oldest.getAge()) {
+                oldest = camper;
             }
         }
         if (oldest == null) {
@@ -218,12 +203,7 @@ public class Boy_scouts {
     }
 
     public static Amount payAmount() {
-        int numCamper = 0;
-        for (int i = 0; i < nameCampers.length; i++) {
-            if (nameCampers[i] != null) {
-                numCamper++;
-            }
-        }
+        int numCamper = nameCampers.size();
         if (numCamper <= 0) {
             System.out.println("There are no registered campers!");
             return new Amount(0.0, amount.getCurrency());
@@ -239,30 +219,18 @@ public class Boy_scouts {
         String name = sc.nextLine();
         System.out.println("Enter activity duration: ");
         double duration = sc.nextDouble();
-        for (int i = 0; i < activities.length; i++) {
-            if (activities[i] != null && activities[i].getName().equals(name)) {
+        for (Activity act: activities) {
+            if (act.getName().equals(name)) {
                 System.out.println("Activity already exists! Try again!");
                 return false;
             }
         }
-        for (int i = 0; i < activities.length; i++) {
-            if (activities[i] == null) {
-                activities[i] = new Activity(name, duration);
-                System.out.println("Activity added correctly! Good Job!");
-                return true;
-            }
-        }
-        System.out.println("The array of activities is full! No more activities names can be added!");
-        return false;
+        activities.add(new Activity(name, duration));
+        System.out.println("Activity added correctly! Good Job!");
+        return true;
     }
-    
-    public static int actRegistered(){
-        int num = 0;
-        for (int i = 0; i < activities.length; i++) {
-            if (activities[i] != null ){
-                num++;
-            }
-        }
-        return num;
+
+    public static int actRegistered() {
+        return activities.size();
     }
 }
